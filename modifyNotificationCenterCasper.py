@@ -76,7 +76,7 @@ NOTIFICATION_DATABASE = CURRENT_FINDER_CACHE_FOLDER + "com.apple.notificationcen
 if os.path.exists(NOTIFICATION_DATABASE):
     pass
 else:
-    print "Can not find Notification Database in /var/folders/ checking home folder"
+    if _DEBUG | _VERBOSE: print "Can not find Notification Database in /var/folders/ checking home folder"
     CURRENT_FINDER_CACHE_FOLDER = CURRENT_FINDER_HOME + "/Library/Application Support/NotificationCenter/"
     FILES = os.listdir(CURRENT_FINDER_CACHE_FOLDER)
     for file in FILES:
