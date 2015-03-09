@@ -4,7 +4,7 @@ import os, commands, sqlite3, sys, pwd, time, getopt, getpass, re
 
 ##########################################################################################
 # Name the Casper Parameters:
-# 4 Apps to effect (ALL, APPLE, NONAPPLE, NONSYSTEM)
+# 4 Apps to effect (ALL, APPLE, NONAPPLE, NONSYSTEM, CASPER)
 # 5 Alert Style (BANNER, ALERT, OFF)
 # 6 Show Previews (ALWAYS, UNLOCKED, OFF)
 # 7 Show on Lock Screen (ON, OFF)
@@ -58,6 +58,7 @@ APPS_WHERE_DICT = { "ALL" : "",
     "APPLE" : "WHERE bundleid LIKE 'COM.APPLE.%'",
     "NONAPPLE": "WHERE bundleid NOT LIKE '%COM.APPLE.%' AND bundleid NOT LIKE '_SYSTEM_CENTER_%'",
     "NONSYSTEM" : "WHERE bundleid NOT LIKE '_SYSTEM_CENTER_%'",
+    "CASPER" : "WHERE bundleid LIKE 'com.jamfsoftware.Management-Action'";
 }
 
 #########################################################################################
@@ -116,7 +117,7 @@ if len(sys.argv) < 4:
 
 
 #EFFECT
-if sys.argv[4].upper() in ("ALL","APPLE","NONAPPLE","NONSYSTEM"):
+if sys.argv[4].upper() in ("ALL","APPLE","NONAPPLE","NONSYSTEM","CASPER"):
     APPS_IN_QUESTION = sys.argv[4].upper()
     if _DEBUG | _VERBOSE: print "Modifying " + APPS_IN_QUESTION
 elif sys.argv[4].upper() in APPS_LIST:
@@ -189,6 +190,7 @@ if APPS_IN_QUESTION == "ALL": cur.execute("SELECT * FROM app_info %s"% APPS_WHER
 elif APPS_IN_QUESTION == "APPLE": cur.execute("SELECT * FROM app_info %s"% APPS_WHERE_DICT["APPLE"])
 elif APPS_IN_QUESTION == "NONAPPLE": cur.execute("SELECT * FROM app_info %s"% APPS_WHERE_DICT["NONAPPLE"])
 elif APPS_IN_QUESTION == "NONSYSTEM": cur.execute("SELECT * FROM app_info %s"% APPS_WHERE_DICT["NONSYSTEM"])
+elif APPS_IN_QUESTION == "CASPER": cur.execute("SELECT * FROM app_info %s"% APPS_WHERE_DICT["CASPER"])
 else: cur.execute("SELECT * FROM app_info WHERE bundleid LIKE '%s'"% APPS_IN_QUESTION)
 
 WORKING_APP_LIST = cur.fetchall()
