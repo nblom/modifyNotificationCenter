@@ -58,7 +58,7 @@ APPS_WHERE_DICT = { "ALL" : "",
     "APPLE" : "WHERE bundleid LIKE 'COM.APPLE.%'",
     "NONAPPLE": "WHERE bundleid NOT LIKE '%COM.APPLE.%' AND bundleid NOT LIKE '_SYSTEM_CENTER_%'",
     "NONSYSTEM" : "WHERE bundleid NOT LIKE '_SYSTEM_CENTER_%'",
-    "CASPER" : "WHERE bundleid LIKE 'com.jamfsoftware.Management-Action'";
+    "CASPER" : "WHERE bundleid LIKE 'com.jamfsoftware.Management-Action'"
 }
 
 #########################################################################################
