@@ -17,6 +17,10 @@ import os, commands, sqlite3, sys, pwd, time, getopt, getpass, re
 # all other settings the same, you can put a dot or "Same" in the other parameters to keep
 # them how the user has them.
 #
+# The policy cannot be triggered to run during startup, login or logout
+# (and probably not during enrollment complete)
+# It needs a logged in user to function.
+#
 ##########################################################################################
 
 
@@ -76,13 +80,14 @@ NOTIFICATION_DATABASE = CURRENT_FINDER_CACHE_FOLDER + "com.apple.notificationcen
 if os.path.exists(NOTIFICATION_DATABASE):
     pass
 else:
-    if _DEBUG | _VERBOSE: print "Can not find Notification Database in /var/folders/ checking home folder"
+    if _DEBUG: print "Can not find Notification Database in /var/folders/ checking home folder"
     CURRENT_FINDER_CACHE_FOLDER = CURRENT_FINDER_HOME + "/Library/Application Support/NotificationCenter/"
     FILES = os.listdir(CURRENT_FINDER_CACHE_FOLDER)
     for file in FILES:
         if re.match("\d*.*\.db",file):
             NOTIFICATION_DATABASE = CURRENT_FINDER_CACHE_FOLDER + file
     if os.path.exists(NOTIFICATION_DATABASE):
+    	if _DEBUG | _VERBOSE: print "Found Notification Database at " + NOTIFICATION_DATABASE
         pass
     else:
         print "Can not find Notification Database."
