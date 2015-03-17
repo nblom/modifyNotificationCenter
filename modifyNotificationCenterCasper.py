@@ -287,10 +287,13 @@ con.commit()
 con.close()
 
 #########################################################################################
-# Unload and Reload the usernoted
+# Unload and Reload the usernoted and notificationcenterui
 #########################################################################################
 commands.getoutput("launchctl unload /System/Library/LaunchAgents/com.apple.usernoted.plist")
-time.sleep(1)
+commands.getoutput("launchctl unload /System/Library/LaunchAgents/com.apple.notificationcenterui.plist")
+time.sleep(2)
 commands.getoutput("launchctl load /System/Library/LaunchAgents/com.apple.usernoted.plist")
+commands.getoutput("launchctl load /System/Library/LaunchAgents/com.apple.notificationcenterui.plist")
+
 
 
